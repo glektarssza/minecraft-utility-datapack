@@ -10,6 +10,16 @@ done
 
 SCRIPT_DIR="$(cd -P "$(dirname "${SCRIPT_SOURCE}")" > /dev/null 2>&1 && pwd)";
 
+PROJECT_ROOT="$(cd -P "${SCRIPT_DIR}/.." > /dev/null 2>&1 && pwd)";
+DIST_DIR="${PROJECT_ROOT}/dist";
+OUTPUT_FILE="${DIST_DIR}/glek-utils-${VERSION_TAG}.zip";
+
+ASSETS=("./data" "./pack.mcmeta")
+
+if [[ -f "${PROJECT_ROOT}/pack.png" ]]; then
+    ASSETS+=("./pack.png")
+fi
+
 VERSION_TAG="$1"
 
 if [[ -z "${VERSION_TAG}" ]]; then
@@ -17,21 +27,10 @@ if [[ -z "${VERSION_TAG}" ]]; then
     VERSION_TAG="$(git rev-parse --short HEAD)";
 fi
 
-PROJECT_ROOT="$(cd -P "${SCRIPT_DIR}/.." > /dev/null 2>&1 && pwd)";
-SOURCE_DIR="${PROJECT_ROOT}/src";
-DIST_DIR="${PROJECT_ROOT}/dist";
-OUTPUT_FILE="${DIST_DIR}/glek-utils-${VERSION_TAG}.zip";
-
 ZIP_EXEC="$(which zip 2> /dev/null)"
 
 if [[ ! -f "${ZIP_EXEC}" ]]; then
     printf "[\x1b[38;5;160mERROR\x1b[0m] Failed to locate 'zip' executable!\n";
-    printf "\x1b[38;5;160mFAILURE\x1b[0m\n";
-    exit 1;
-fi
-
-if [[ ! -d "${SOURCE_DIR}" ]]; then
-    printf "[\x1b[38;5;160mERROR\x1b[0m] Failed to locate source directory!\n";
     printf "\x1b[38;5;160mFAILURE\x1b[0m\n";
     exit 1;
 fi
@@ -59,9 +58,9 @@ fi
 printf "[\x1b[38;5;111mINFO\x1b[0m] Building datapack for version '${VERSION_TAG}'...\n";
 printf "[\x1b[38;5;111mINFO\x1b[0m] Creating datapack at '${OUTPUT_FILE}'...\n";
 
-pushd "${SOURCE_DIR}" > /dev/null 2>&1;
+pushd "${PROJECT_ROOT}" > /dev/null 2>&1;
 
-zip -n ".png" -r -9 "${OUTPUT_FILE}" "." > /dev/null 2>&1;
+zip -n ".png" -r -9 "${OUTPUT_FILE}" ${ASSETS[@]} > /dev/null 2>&1;
 
 popd > /dev/null 2>&1;
 
