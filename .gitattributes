@@ -1,0 +1,8 @@
+# Treat all files as text files with Unix-style line endings by default
+* text eol=lf
+
+# Treat .bat files as text files with Windows-style line endings
+*.bat text eol=crlf
+
+# Treat .cmd files as text files with Windows-style line endings
+*.cmd text eol=crlf
