@@ -6,3 +6,9 @@
 
 # Treat .cmd files as text files with Windows-style line endings
 *.cmd text eol=crlf
+
+# Treat .png files as binary
+*.png binary
+
+# Handle .png files with Git LFS
+*.png filter=lfs diff=lfs merge=lfs -text
