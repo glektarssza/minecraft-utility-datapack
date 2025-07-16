@@ -34,9 +34,6 @@ if [[ -z "${LIB_DIR}" ]]; then
 ) )";
 fi
 
-#-- Make errors no longer fatal
-set +e;
-
 #-- Sourcing guard
 if [[ -n "${__LIB_LOGGING}" ]]; then
     return 0;
@@ -112,3 +109,6 @@ function log_fatal_stdout() {
     printf "[$(sgr_fg_8bit 15)$(sgr_fg_8bit 196)FATAL$(sgr_reset)] %s\n" "$*";
     return 0;
 }
+
+#-- Make errors no longer fatal
+set +e;

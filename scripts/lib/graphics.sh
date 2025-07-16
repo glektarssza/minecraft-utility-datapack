@@ -34,9 +34,6 @@ if [[ -z "${LIB_DIR}" ]]; then
 ) )";
 fi
 
-#-- Make errors no longer fatal
-set +e;
-
 #-- Sourcing guard
 if [[ -n "${__LIB_GRAPHICS}" ]]; then
     return 0;
@@ -126,3 +123,6 @@ function sgr_bg_24bit() {
 }
 
 # TODO: Other SGR codes
+
+#-- Make errors no longer fatal
+set +e;
