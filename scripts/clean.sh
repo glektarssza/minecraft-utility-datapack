@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# The main build script.
+# The main clean script.
 
 #-- Make errors fatal
 set -e;
@@ -48,38 +48,29 @@ function cleanup {
 #-- Make errors no longer fatal
 set +e;
 
-log_info "Starting build...";
-
-log_info "Finding nearest Git tag...";
-
-declare GIT_TAG;
-GIT_TAG="$(git rev-parse --abbrev-ref --tags --not HEAD | grep -v '\^')";
-
-if [[ -z "${GIT_TAG}" ]]; then
-    log_fatal "Could not find any Git tags!";
-    cleanup;
-    exit 1;
-fi
-
-if [[ -z "${CI}" ]]; then
-    log_warning "Building in a development environment!";
-    GIT_TAG="${GIT_TAG}-dev";
-fi
+log_info "Starting clean...";
 
 if [[ ! -d "${PROJECT_DIR}/dist/" ]]; then
-    log_verbose "Creating 'dist' directory...";
-    mkdir -p "${PROJECT_DIR}/dist/";
+    log_info "No 'dist' directory, nothing to do!";
+    cleanup;
+    exit 0;
 fi
 
-log_info "Building as version ${GIT_TAG}...";
+if [[ -z "$(ls "${PROJECT_DIR}/dist/")" ]]; then
+    log_info "Nothing in the 'dist' directory, nothing to do!";
+    cleanup;
+    exit 0;
+fi
+
+log_info "Removing 'zip' files inside  '${PROJECT_DIR}/dist/'...";
 
 #-- Run as a subshell to avoid `cd` impacting our shell
 (
-cd "${PROJECT_DIR}/src/";
-zip -r "${PROJECT_DIR}/dist/glek_util_pack-${GIT_TAG}.zip" ".";
+cd "${PROJECT_DIR}/dist/";
+rm ./*.zip;
 )
 
-log_info "Built as version ${GIT_TAG}...";
+log_info "Done cleaning";
 
 cleanup;
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# The main build script.
+# The main rebuild script.
 
 #-- Make errors fatal
 set -e;
 
-declare SCRIPT_PATH PROJECT_DIR;
+declare SCRIPT_PATH;
 SCRIPT_PATH="$( (
         declare SOURCE_PATH SYMLINK_DIR SCRIPT_DIR;
         # shellcheck disable=SC2296
@@ -33,7 +33,6 @@ SCRIPT_PATH="$( (
         echo "${SCRIPT_DIR}";
     )
 )";
-PROJECT_DIR="${SCRIPT_PATH}/..";
 
 source "${SCRIPT_PATH}/lib/entry.sh";
 
@@ -48,39 +47,18 @@ function cleanup {
 #-- Make errors no longer fatal
 set +e;
 
-log_info "Starting build...";
-
-log_info "Finding nearest Git tag...";
-
-declare GIT_TAG;
-GIT_TAG="$(git rev-parse --abbrev-ref --tags --not HEAD | grep -v '\^')";
-
-if [[ -z "${GIT_TAG}" ]]; then
-    log_fatal "Could not find any Git tags!";
-    cleanup;
+"${SCRIPT_PATH}/clean.sh";
+if [[ ! $? ]]; then
+    log_fatal "Failed to clean old outputs!";
+    cleanup
     exit 1;
 fi
 
-if [[ -z "${CI}" ]]; then
-    log_warning "Building in a development environment!";
-    GIT_TAG="${GIT_TAG}-dev";
+"${SCRIPT_PATH}/build.sh";
+if [[ ! $? ]]; then
+    log_fatal "Failed to build!";
+    cleanup
+    exit 1;
 fi
-
-if [[ ! -d "${PROJECT_DIR}/dist/" ]]; then
-    log_verbose "Creating 'dist' directory...";
-    mkdir -p "${PROJECT_DIR}/dist/";
-fi
-
-log_info "Building as version ${GIT_TAG}...";
-
-#-- Run as a subshell to avoid `cd` impacting our shell
-(
-cd "${PROJECT_DIR}/src/";
-zip -r "${PROJECT_DIR}/dist/glek_util_pack-${GIT_TAG}.zip" ".";
-)
-
-log_info "Built as version ${GIT_TAG}...";
-
-cleanup;
 
 exit 0;
