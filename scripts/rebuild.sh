@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# The main clean script.
+# The main rebuild script.
 
 #-- Make errors fatal
 set -e;
 
-declare SCRIPT_PATH PROJECT_DIR;
+declare SCRIPT_PATH;
 SCRIPT_PATH="$( (
         declare SOURCE_PATH SYMLINK_DIR SCRIPT_DIR;
         # shellcheck disable=SC2296
@@ -33,7 +33,6 @@ SCRIPT_PATH="$( (
         echo "${SCRIPT_DIR}";
     )
 )";
-PROJECT_DIR="${SCRIPT_PATH}/..";
 
 source "${SCRIPT_PATH}/lib/entry.sh";
 
@@ -48,30 +47,18 @@ function cleanup {
 #-- Make errors no longer fatal
 set +e;
 
-log_info "Starting clean...";
-
-if [[ ! -d "${PROJECT_DIR}/dist/" ]]; then
-    log_info "No 'dist' directory, nothing to do!";
-    cleanup;
-    exit 0;
+"${SCRIPT_PATH}/clean.sh";
+if [[ ! $? ]]; then
+    log_fatal "Failed to clean old outputs!";
+    cleanup
+    exit 1;
 fi
 
-if [[ -z "$(ls "${PROJECT_DIR}/dist/")" ]]; then
-    log_info "Nothing in the 'dist' directory, nothing to do!";
-    cleanup;
-    exit 0;
+"${SCRIPT_PATH}/build.sh";
+if [[ ! $? ]]; then
+    log_fatal "Failed to build!";
+    cleanup
+    exit 1;
 fi
-
-log_info "Removing 'zip' files inside  '${PROJECT_DIR}/dist/'...";
-
-#-- Run as a subshell to avoid `cd` impacting our shell
-(
-cd "${PROJECT_DIR}/dist/";
-rm ./*.zip;
-)
-
-log_info "Done cleaning";
-
-cleanup;
 
 exit 0;
