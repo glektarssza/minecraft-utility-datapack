@@ -49,6 +49,10 @@ source "${SCRIPT_PATH}/lib/entry.sh";
 BUILD_TAG="$(git rev-parse --short HEAD)";
 BUILD_CONFIG="dev";
 
+if [[ -n "${CI}" ]]; then
+    BUILD_CONFIG="prod";
+fi
+
 function cleanup_vars {
     unset SCRIPT_PATH PROJECT_DIR BUILD_TAG BUILD_CONFIG TRUE FALSE;
     unset LIB_LOGGING_VERBOSE LIB_LOGGING_DEBUG DRY_RUN BUILD_SUFFIX;
@@ -57,10 +61,6 @@ function cleanup_vars {
 function cleanup {
     cleanup_vars;
 }
-
-if [[ -n "${CI}" ]]; then
-    BUILD_CONFIG="prod";
-fi
 
 function print_epilogue {
     echo "Copyright (c) 2025 G'lek Tarssza, all rights reserved.";

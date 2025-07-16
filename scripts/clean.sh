@@ -4,7 +4,16 @@
 #-- Make errors fatal
 set -e;
 
-declare SCRIPT_PATH PROJECT_DIR;
+declare SCRIPT_PATH PROJECT_DIR TRUE FALSE DRY_RUN;
+declare LIB_LOGGING_VERBOSE LIB_LOGGING_DEBUG;
+
+TRUE="true";
+FALSE="false";
+
+LIB_LOGGING_VERBOSE="${VERBOSE}";
+LIB_LOGGING_DEBUG="${DEBUG}";
+DRY_RUN="${FALSE}";
+
 SCRIPT_PATH="$( (
         declare SOURCE_PATH SYMLINK_DIR SCRIPT_DIR;
         # shellcheck disable=SC2296
@@ -38,39 +47,119 @@ PROJECT_DIR="${SCRIPT_PATH}/..";
 source "${SCRIPT_PATH}/lib/entry.sh";
 
 function cleanup_vars {
-    unset SCRIPT_PATH PROJECT_DIR;
+    unset SCRIPT_PATH PROJECT_DIR TRUE FALSE DRY_RUN;
+    unset LIB_LOGGING_VERBOSE LIB_LOGGING_DEBUG ;
 }
 
 function cleanup {
     cleanup_vars;
 }
 
+function print_epilogue {
+    echo "Copyright (c) 2025 G'lek Tarssza, all rights reserved.";
+}
+
+function print_help {
+    echo "clean.sh [options] [args]";
+    echo "Clean old built versions of the datapack.";
+    echo "";
+    echo "=== Arguments ===";
+    echo "";
+    echo "=== Options ===";
+    printf "  --help|-h\t\t\t\tShow the help information and then exit.\n";
+    printf "  --version\t\t\t\tShow the version information and then exit.\n";
+    printf "  --verbose|-v\t\t\t\tEnable verbose logging.\n";
+    printf "  --no-verbose\t\t\t\tDisable verbose logging.\n";
+    printf "  --debug|-d\t\t\t\tEnable debug logging.\n";
+    printf "  --no-debug\t\t\t\tDisable debug logging.\n";
+    printf "  --dry-run\t\t\t\tOnly print what operations would have been performed.\n";
+    echo "";
+    print_epilogue;
+}
+
+function print_version {
+    printf "v0.0.1 - ";
+    print_epilogue;
+}
+
+function parse_args {
+    while [[ -n "${1+set}" ]]; do
+        case "$1" in
+            --help|-h)
+                print_help;
+                exit 0;
+            ;;
+            --version)
+                print_version;
+                exit 0;
+            ;;
+            --verbose|-v)
+                # shellcheck disable=SC2034
+                LIB_LOGGING_VERBOSE="${TRUE}";
+                log_verbose "Verbose logging enabled";
+            ;;
+            --no-verbose)
+                log_verbose "Disabling verbose logging...";
+                # shellcheck disable=SC2034
+                LIB_LOGGING_VERBOSE="${FALSE}";
+            ;;
+            --debug|-d)
+                # shellcheck disable=SC2034
+                LIB_LOGGING_DEBUG="${TRUE}";
+                log_debug "Debug logging enabled";
+            ;;
+            --no-debug)
+                log_debug "Disabling debug logging...";
+                # shellcheck disable=SC2034
+                LIB_LOGGING_DEBUG="${FALSE}";
+            ;;
+            --dry-run)
+                DRY_RUN="${TRUE}";
+                log_verbose "Dry run mode enabled";
+            ;;
+            '')
+                #-- Does nothing!
+            ;;
+            *)
+                log_fatal "Unrecognized option '$1'!";
+                cleanup;
+                exit 1;
+            ;;
+        esac
+        shift;
+    done
+}
+
 #-- Make errors no longer fatal
 set +e;
 
-log_info "Starting clean...";
+parse_args "$@";
 
 if [[ ! -d "${PROJECT_DIR}/dist/" ]]; then
-    log_info "No 'dist' directory, nothing to do!";
+    log_info "'dist' directory does not exist, nothing to do!";
     cleanup;
     exit 0;
 fi
 
 if [[ -z "$(ls "${PROJECT_DIR}/dist/")" ]]; then
-    log_info "Nothing in the 'dist' directory, nothing to do!";
+    log_info "'dist' directory is empty, nothing to do!";
     cleanup;
     exit 0;
 fi
 
-log_info "Removing 'zip' files inside  '${PROJECT_DIR}/dist/'...";
+log_info "Cleaning old versions...";
 
-#-- Run as a subshell to avoid `cd` impacting our shell
-(
-cd "${PROJECT_DIR}/dist/";
-rm ./*.zip;
-)
+for ARCHIVE in "${PROJECT_DIR}"/dist/*.zip; do
+    log_info "Deleting '$(basename "${ARCHIVE}")'...";
+    if [[ "${DRY_RUN}" == "${FALSE}" ]]; then
+        rm "${ARCHIVE}";
+    else
+        log_info "Would have run:";
+        log_info "rm \"\${ARCHIVE}\";";
+    fi
+done
 
-log_info "Done cleaning";
+log_info "Cleaned old versions";
 
 cleanup;
 
