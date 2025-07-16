@@ -47,11 +47,15 @@ PROJECT_DIR="${SCRIPT_PATH}/..";
 
 source "${SCRIPT_PATH}/lib/entry.sh";
 
-BUILD_TAG="$(git rev-parse --short HEAD)";
-BUILD_CONFIG="dev";
-
-if [[ -n "${CI}" ]]; then
-    BUILD_CONFIG="prod";
+if [[ -z "${BUILD_TAG}" ]]; then
+    BUILD_TAG="$(git rev-parse --short HEAD)";
+fi
+if [[ -z "${BUILD_CONFIG}" ]]; then
+    if [[ -n "${CI}" ]]; then
+        BUILD_CONFIG="prod";
+    else
+        BUILD_CONFIG="dev";
+    fi
 fi
 
 function cleanup_vars {

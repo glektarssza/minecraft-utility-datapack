@@ -46,11 +46,15 @@ PROJECT_DIR="${SCRIPT_PATH}/..";
 
 source "${SCRIPT_PATH}/lib/entry.sh";
 
-BUILD_TAG="$(git rev-parse --short HEAD)";
-BUILD_CONFIG="dev";
-
-if [[ -n "${CI}" ]]; then
-    BUILD_CONFIG="prod";
+if [[ -z "${BUILD_TAG}" ]]; then
+    BUILD_TAG="$(git rev-parse --short HEAD)";
+fi
+if [[ -z "${BUILD_CONFIG}" ]]; then
+    if [[ -n "${CI}" ]]; then
+        BUILD_CONFIG="prod";
+    else
+        BUILD_CONFIG="dev";
+    fi
 fi
 
 function cleanup_vars {
@@ -130,31 +134,51 @@ function parse_args {
             ;;
             --build-config|-c)
                 shift;
-                BUILD_CONFIG="$1";
-                if [[ "${BUILD_CONFIG}" != "dev" && "${BUILD_CONFIG}" != "prod" ]]; then
-                    log_fatal "Unrecognized build config '${BUILD_CONFIG}'!";
-                    cleanup;
-                    exit 1;
+                if [[ -n "$1" ]]; then
+                    BUILD_CONFIG="$1";
+                    log_debug "Build config set to '${BUILD_CONFIG}'";
+                        if [[ "${BUILD_CONFIG}" != "dev" && "${BUILD_CONFIG}" != "prod" ]]; then
+                        log_fatal "Unrecognized build config '${BUILD_CONFIG}'!";
+                        cleanup;
+                        exit 1;
+                    fi
                 fi
-                log_debug "Build config set to '${BUILD_CONFIG}'";
             ;;
             --build-config=*|-c=*)
-                BUILD_CONFIG="$(echo "$1" | awk -F'=' '{printf $2; for (i = 3; i < NF; i += 1) {printf "="; printf $i;} printf "\n"}')";
-                if [[ "${BUILD_CONFIG}" != "dev" && "${BUILD_CONFIG}" != "prod" ]]; then
-                    log_fatal "Unrecognized build config '${BUILD_CONFIG}'!";
+                local TEMP;
+                TEMP="$(echo "$1" | awk -F'=' '{printf $2; for (i = 3; i < NF; i += 1) {printf "="; printf $i;} printf "\n"}')";
+                if [[ -n "${TEMP}" ]]; then
+                    BUILD_CONFIG="$(echo "$1" | awk -F'=' '{printf $2; for (i = 3; i < NF; i += 1) {printf "="; printf $i;} printf "\n"}')";
+                    log_debug "Build config set to '${BUILD_CONFIG}'";
+                    if [[ "${BUILD_CONFIG}" != "dev" && "${BUILD_CONFIG}" != "prod" ]]; then
+                        log_fatal "Unrecognized build config '${BUILD_CONFIG}'!";
+                        cleanup;
+                        exit 1;
+                    fi
+                else
+                    log_fatal "'--build-config' option provided but no value given!";
                     cleanup;
                     exit 1;
                 fi
-                log_debug "Build config set to '${BUILD_CONFIG}'";
             ;;
             --build-tag|-t)
                 shift;
-                BUILD_TAG="$1";
-                log_debug "Build tag set to '${BUILD_TAG}'";
+                if [[ -n "$1" ]]; then
+                    BUILD_TAG="$1";
+                    log_debug "Build tag set to '${BUILD_TAG}'";
+                fi
             ;;
             --build-tag=*|-t=*)
-                BUILD_TAG="$(echo "$1" | awk -F'=' '{printf $2; for (i = 3; i < NF; i += 1) {printf "="; printf $i;} printf "\n"}')";
-                log_debug "Build tag set to '${BUILD_TAG}'";
+                local TEMP;
+                TEMP="$(echo "$1" | awk -F'=' '{printf $2; for (i = 3; i < NF; i += 1) {printf "="; printf $i;} printf "\n"}')";
+                if [[ -n "${TEMP}" ]]; then
+                    BUILD_TAG="${TEMP}";
+                    log_debug "Build tag set to '${BUILD_TAG}'";
+                else
+                    log_fatal "'--build-tag' option provided but no value given!";
+                    cleanup;
+                    exit 1;
+                fi
             ;;
             *)
                 log_fatal "Unrecognized option '$1'!";
