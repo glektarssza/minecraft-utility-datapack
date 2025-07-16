@@ -38,14 +38,12 @@ PROJECT_DIR="${SCRIPT_PATH}/..";
 source "${SCRIPT_PATH}/lib/entry.sh";
 
 function cleanup_vars {
-    unset SCRIPT_PATH;
+    unset SCRIPT_PATH PROJECT_DIR;
 }
 
 function cleanup {
     cleanup_vars;
 }
-
-trap cleanup EXIT;
 
 #-- Make errors no longer fatal
 set +e;
@@ -59,6 +57,7 @@ GIT_TAG="$(git rev-parse --abbrev-ref --tags --not HEAD | grep -v '\^')";
 
 if [[ -z "${GIT_TAG}" ]]; then
     log_fatal "Could not find any Git tags!";
+    cleanup;
     exit 1;
 fi
 
@@ -81,5 +80,7 @@ zip -r "${PROJECT_DIR}/dist/glek_util_pack-${GIT_TAG}.zip" ".";
 )
 
 log_info "Built as version ${GIT_TAG}...";
+
+cleanup;
 
 exit 0;
