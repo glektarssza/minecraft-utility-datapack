@@ -1,0 +1,128 @@
+{
+    "env": {
+        "gameVersion": "Auto",
+        "dataSource": "GitHub",
+        "language": "Default",
+        "dependencies": [
+            "@vanilla-mcdoc"
+        ],
+        "permissionLevel": 4,
+        "feature": {
+            "codeActions": true,
+            "colors": true,
+            "completions": true,
+            "documentHighlighting": true,
+            "documentLinks": true,
+            "foldingRanges": true,
+            "formatting": true,
+            "hover": true,
+            "inlayHint": {
+                "enabledNodes": [
+                    "mcfunction:command_child/unknown"
+                ]
+            },
+            "selectionRanges": true,
+            "semanticColoring": true,
+            "signatures": true
+        },
+        "enableMcdocCaching": true,
+        "customResources": {},
+        "mcmetaSummaryOverrides": {},
+        "plugins": [],
+        "useFilePolling": false
+    },
+    "format": {
+        "blockStateBracketSpacing": {
+            "inside": 0
+        },
+        "blockStateCommaSpacing": {
+            "before": 0,
+            "after": 1
+        },
+        "blockStateEqualSpacing": {
+            "before": 0,
+            "after": 0
+        },
+        "blockStateTrailingComma": false,
+        "eol": "lf",
+        "nbtArrayBracketSpacing": {
+            "inside": 0
+        },
+        "nbtArrayCommaSpacing": {
+            "before": 0,
+            "after": 1
+        },
+        "nbtArraySemicolonSpacing": {
+            "after": 1
+        },
+        "nbtArrayTrailingComma": false,
+        "nbtByteSuffix": "b",
+        "nbtCompoundBracketSpacing": {
+            "inside": 0
+        },
+        "nbtCompoundColonSpacing": {
+            "before": 0,
+            "after": 1
+        },
+        "nbtCompoundCommaSpacing": {
+            "before": 0,
+            "after": 1
+        },
+        "nbtCompoundTrailingComma": false,
+        "nbtDoubleOmitSuffix": false,
+        "nbtDoubleSuffix": "d",
+        "nbtFloatSuffix": "f",
+        "nbtListBracketSpacing": {
+            "inside": 0
+        },
+        "nbtListCommaSpacing": {
+            "before": 0,
+            "after": 1
+        },
+        "nbtListTrailingComma": false,
+        "nbtLongSuffix": "l",
+        "nbtShortSuffix": "s",
+        "selectorBracketSpacing": {
+            "inside": 0
+        },
+        "selectorCommaSpacing": {
+            "before": 0,
+            "after": 1
+        },
+        "selectorEqualSpacing": {
+            "before": 0,
+            "after": 0
+        },
+        "selectorTrailingComma": false,
+        "timeOmitTickUnit": false
+    },
+    "lint": {
+        "nameOfNbtKey": [
+            "error",
+            "^[a-z]+(_[a-z]+)*$"
+        ],
+        "nameOfObjective": [
+            "error",
+            "^[a-z]+(_[a-z]+)*$"
+        ],
+        "nameOfScoreHolder": [
+            "error",
+            "^[a-z]+(_[a-z]+)*$"
+        ],
+        "nameOfTag": [
+            "error",
+            "^[a-z]+(_[a-z]+)*$"
+        ],
+        "nameOfTeam": [
+            "error",
+            "^[a-z]+(_[a-z]+)*$"
+        ],
+        "undeclaredSymbol": [
+            "error",
+            {
+                "report": "inherit"
+            }
+        ]
+    },
+    "snippet": {}
+}

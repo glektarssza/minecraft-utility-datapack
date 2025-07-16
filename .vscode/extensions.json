@@ -3,6 +3,11 @@
         "github.remotehub",
         "github.vscode-pull-request-github",
         "github.vscode-github-actions",
-        "editorconfig.editorconfig"
+        "editorconfig.editorconfig",
+        "SPGoding.datapack-language-server",
+        "MinecraftCommands.syntax-mcfunction",
+        "actuallyboomber.tellraw-preview",
+        "Nobuwu.mc-color",
+        "Misodee.vscode-nbt"
     ]
 }
