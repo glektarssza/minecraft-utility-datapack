@@ -43,18 +43,20 @@ declare __LIB_LOGGING="1";
 source "${LIB_DIR}/graphics.sh";
 
 if [[ -z "${LIB_LOGGING_DEBUG}" ]]; then
-    # Whether to enable verbose logging.
-    declare LIB_LOGGING_DEBUG="false";
+    # Whether to enable debug logging.
+    declare LIB_LOGGING_DEBUG;
+    LIB_LOGGING_DEBUG="false"
 fi
 
 if [[ -z "${LIB_LOGGING_VERBOSE}" ]]; then
     # Whether to enable verbose logging.
-    declare LIB_LOGGING_VERBOSE="false";
+    declare LIB_LOGGING_VERBOSE;
+    LIB_LOGGING_VERBOSE="false"
 fi
 
 # Log a debug-level message.
 function log_debug() {
-    if [[ ! ( "${LIB_LOGGING_DEBUG}" =~ false\|0 ) ]]; then
+    if [[ ! ( "${LIB_LOGGING_DEBUG}" =~ false|0 ) ]]; then
         printf "[$(sgr_fg_8bit 220)DEBUG$(sgr_reset)] %s\n" "$*";
     fi
     return 0;
@@ -62,7 +64,7 @@ function log_debug() {
 
 # Log a verbose-level message.
 function log_verbose() {
-    if [[ ! ( "${LIB_LOGGING_VERBOSE}" =~ false\|0 ) ]]; then
+    if [[ ! ( "${LIB_LOGGING_VERBOSE}" =~ false|0 ) ]]; then
         printf "[$(sgr_fg_8bit 171)VERBOSE$(sgr_reset)] %s\n" "$*";
     fi
     return 0;

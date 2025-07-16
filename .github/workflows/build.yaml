@@ -1,0 +1,117 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-workflow.json
+name: Build
+on:
+  workflow_call:
+    inputs:
+      build-tag:
+        description: |
+          The tag to build for.
+
+          Defaults to the current commit SHA (in unique, shortened format).
+        type: string
+        required: false
+        default: ""
+      build-config:
+        description: |
+          The configuration to build for.
+
+          Defaults to `dev`.
+
+          Valid options are:
+            * `dev`
+            * `prod`
+        type: string
+        required: true
+        default: dev
+      verbose-logging:
+        description: |
+          Whether to enable verbose logging.
+
+          Defaults to `false`.
+        type: boolean
+        required: false
+        default: false
+      debug-logging:
+        description: |
+          Whether to enable debug logging.
+
+          Defaults to `false`.
+        type: boolean
+        required: false
+        default: false
+      upload-artifacts:
+        description: |
+          Whether to upload artifacts from the build.
+
+          Defaults to `false`.
+        type: boolean
+        required: false
+        default: false
+      artifact-retention-days:
+        description: |
+          The number of days to retain uploaded artifacts for.
+
+          Using `0` defaults to the repository's defaults.
+        type: number
+        required: false
+        default: 0
+    outputs:
+      artifacts-id:
+        description: |
+          The ID of the generated artifacts.
+        value: ${{jobs.build.outputs.artifacts-id}}
+      artifacts-name:
+        description: |
+          The name of the generated artifacts.
+        value: ${{jobs.build.outputs.artifacts-name}}
+      artifacts-url:
+        description: |
+          The URL from which the generated artifacts can be downloaded.
+        value: ${{jobs.build.outputs.artifacts-url}}
+    secrets:
+      github-token:
+        description: |
+          The token to use for making authenticated GitHub API calls.
+        required: true
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      #-- Needed to clone repository
+      contents: read
+    outputs:
+      artifacts-id: ${{steps.upload-artifacts.outputs.artifact-id}}
+      artifacts-name: datapack-${{inputs.build-config}}
+      artifacts-url: ${{steps.upload-artifacts.outputs.artifact-url}}
+    steps:
+      - id: clone-repository
+        name: Clone repository
+        uses: actions/checkout@v4
+        with:
+          show-progress: true
+          clean: true
+          fetch-tags: true
+          fetch-depth: 1
+          lfs: true
+          submodules: recursive
+          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
+      - id: rebuild
+        name: Rebuild
+        env:
+          VERBOSE: ${{inputs.verbose-logging}}
+          DEBUG: ${{inputs.debug-logging}}
+          BUILD_TAG: ${{inputs.build-tag}}
+          BUILD_CONFIG: ${{inputs.build-config}}
+        run: |
+          ./scripts/rebuild.sh
+      - id: upload-artifacts
+        name: Upload artifacts
+        if: inputs.upload-artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: datapack-${{inputs.build-config}}
+          path: ./dist/
+          if-no-files-found: error
+          retention-days: ${{inputs.artifact-retention-days}}
+          compression-level: 0

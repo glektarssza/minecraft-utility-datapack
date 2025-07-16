@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: On Release
+on:
+  release:
+    types:
+      - published
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      build-config: prod
+      upload-artifacts: true
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    permissions:
+      #-- To clone repository and write release artifacts
+      contents: write
+    needs:
+      - build
+    steps:
+      - id: checkout-repository
+        name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - id: download-artifacts
+        name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{needs.build.outputs.artifacts-id}}
+          path: artifacts
+      - id: generate-checksums
+        name: Generate checksums
+        run: |
+          md5sum ${{steps.download-artifacts.outputs.download-path}}/${{needs.build.outputs.artifacts-name}}/* > checksums_md5.txt
+          shasum -a 1 ${{steps.download-artifacts.outputs.download-path}}/${{needs.build.outputs.artifacts-name}}/* > checksums_sha1.txt
+          shasum -a 256 ${{steps.download-artifacts.outputs.download-path}}/${{needs.build.outputs.artifacts-name}}/* > checksums_sha256.txt
+          mv *.txt ${{steps.download-artifacts.outputs.download-path}}
+      - id: attach-to-release
+        name: Attach artifacts to release
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const script = require('./.github/scripts/upload-release-assets.js');
+            await script({github, context, core}, ${{toJson(steps.download-artifacts.outputs.download-path)}});
