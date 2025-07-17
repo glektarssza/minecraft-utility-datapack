@@ -1,0 +1,26 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: On Release
+on:
+  release:
+    types:
+      - published
+jobs:
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yaml
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      build-tag: ${{github.event.release.tag_name}}
+      build-config: prod
+      upload-artifacts: true
+  release:
+    name: Release
+    uses: ./.github/workflows/release.yaml
+    needs:
+      - build
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+    with:
+      artifacts-id: ${{needs.build.outputs.artifacts-id}}
+      artifacts-name: ${{needs.build.outputs.artifacts-name}}
