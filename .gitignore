@@ -40,6 +40,9 @@ tags
 # Logs #
 *.log*
 
+# Source #
+!src/**
+
 # Environment #
 ## General ##
 .envrc
