@@ -1,0 +1,13 @@
+{
+    "replace": true,
+    "values": [
+        {
+            "id": "#glek_utils:vanilla/entities",
+            "required": true
+        },
+        {
+            "id": "#glek_utils:modded/entities",
+            "required": true
+        }
+    ]
+}

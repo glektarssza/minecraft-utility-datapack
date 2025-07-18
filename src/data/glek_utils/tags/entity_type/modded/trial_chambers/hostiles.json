@@ -1,0 +1,13 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "trialchambers:breeze",
+            "required": false
+        },
+        {
+            "id": "trialchambers:bogged",
+            "required": false
+        }
+    ]
+}

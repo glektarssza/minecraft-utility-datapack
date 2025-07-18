@@ -1,0 +1,9 @@
+{
+    "replace": true,
+    "values": [
+        {
+            "id": "#glek_utils:modded/everything",
+            "required": true
+        }
+    ]
+}
