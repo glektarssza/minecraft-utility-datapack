@@ -118,9 +118,34 @@
             "^[a-z]+(_[a-z]+)*$"
         ],
         "undeclaredSymbol": [
-            "error",
+            "information",
             {
-                "report": "inherit"
+                "if": [
+                    {
+                        "category": [
+                            "block",
+                            "entity_type",
+                            "item"
+                        ],
+                        "namespace": "minecraft"
+                    },
+                    {
+                        "category": [
+                            "advancement",
+                            "bossbar",
+                            "objective",
+                            "team"
+                        ]
+                    }
+                ],
+                "then": {
+                    "report": "warning"
+                }
+            },
+            {
+                "then": {
+                    "declare": "block"
+                }
             }
         ]
     },

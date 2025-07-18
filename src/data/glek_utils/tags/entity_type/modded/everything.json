@@ -1,0 +1,21 @@
+{
+    "replace": true,
+    "values": [
+        {
+            "id": "#glek_utils:modded/entities",
+            "required": true
+        },
+        {
+            "id": "#glek_utils:modded/hostiles",
+            "required": true
+        },
+        {
+            "id": "#glek_utils:modded/passives",
+            "required": true
+        },
+        {
+            "id": "#glek_utils:modded/projectiles",
+            "required": true
+        }
+    ]
+}

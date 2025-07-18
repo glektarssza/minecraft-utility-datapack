@@ -1,0 +1,9 @@
+{
+    "replace": true,
+    "values": [
+        {
+            "id": "#glek_utils:vanilla/everything",
+            "required": true
+        }
+    ]
+}

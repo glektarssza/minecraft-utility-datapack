@@ -1,0 +1,129 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:area_effect_cloud",
+            "required": true
+        },
+        {
+            "id": "minecraft:armor_stand",
+            "required": true
+        },
+        {
+            "id": "minecraft:block_display",
+            "required": true
+        },
+        {
+            "id": "minecraft:boat",
+            "required": true
+        },
+        {
+            "id": "minecraft:chest_boat",
+            "required": true
+        },
+        {
+            "id": "minecraft:chest_minecart",
+            "required": true
+        },
+        {
+            "id": "minecraft:command_block_minecart",
+            "required": true
+        },
+        {
+            "id": "minecraft:end_crystal",
+            "required": true
+        },
+        {
+            "id": "minecraft:ender_pearl",
+            "required": true
+        },
+        {
+            "id": "minecraft:evoker_fangs",
+            "required": true
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "required": true
+        },
+        {
+            "id": "minecraft:experience_orb",
+            "required": true
+        },
+        {
+            "id": "minecraft:eye_of_ender",
+            "required": true
+        },
+        {
+            "id": "minecraft:falling_block",
+            "required": true
+        },
+        {
+            "id": "minecraft:firework_rocket",
+            "required": true
+        },
+        {
+            "id": "minecraft:fishing_bobber",
+            "required": true
+        },
+        {
+            "id": "minecraft:furnace_minecart",
+            "required": true
+        },
+        {
+            "id": "minecraft:hopper_minecart",
+            "required": true
+        },
+        {
+            "id": "minecraft:interaction",
+            "required": true
+        },
+        {
+            "id": "minecraft:item",
+            "required": true
+        },
+        {
+            "id": "minecraft:item_display",
+            "required": true
+        },
+        {
+            "id": "minecraft:item_frame",
+            "required": true
+        },
+        {
+            "id": "minecraft:leash_knot",
+            "required": true
+        },
+        {
+            "id": "minecraft:lightning_bolt",
+            "required": true
+        },
+        {
+            "id": "minecraft:marker",
+            "required": true
+        },
+        {
+            "id": "minecraft:minecart",
+            "required": true
+        },
+        {
+            "id": "minecraft:painting",
+            "required": true
+        },
+        {
+            "id": "minecraft:spawner_minecart",
+            "required": true
+        },
+        {
+            "id": "minecraft:text_display",
+            "required": true
+        },
+        {
+            "id": "minecraft:tnt",
+            "required": true
+        },
+        {
+            "id": "minecraft:tnt_minecart",
+            "required": true
+        }
+    ]
+}

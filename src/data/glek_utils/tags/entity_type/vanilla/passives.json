@@ -1,0 +1,169 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:allay",
+            "required": true
+        },
+        {
+            "id": "minecraft:axolotl",
+            "required": true
+        },
+        {
+            "id": "minecraft:bat",
+            "required": true
+        },
+        {
+            "id": "minecraft:bee",
+            "required": true
+        },
+        {
+            "id": "minecraft:camel",
+            "required": true
+        },
+        {
+            "id": "minecraft:cat",
+            "required": true
+        },
+        {
+            "id": "minecraft:chicken",
+            "required": true
+        },
+        {
+            "id": "minecraft:cod",
+            "required": true
+        },
+        {
+            "id": "minecraft:cow",
+            "required": true
+        },
+        {
+            "id": "minecraft:dolphin",
+            "required": true
+        },
+        {
+            "id": "minecraft:donkey",
+            "required": true
+        },
+        {
+            "id": "minecraft:fox",
+            "required": true
+        },
+        {
+            "id": "minecraft:frog",
+            "required": true
+        },
+        {
+            "id": "minecraft:glow_squid",
+            "required": true
+        },
+        {
+            "id": "minecraft:goat",
+            "required": true
+        },
+        {
+            "id": "minecraft:horse",
+            "required": true
+        },
+        {
+            "id": "minecraft:iron_golem",
+            "required": true
+        },
+        {
+            "id": "minecraft:llama",
+            "required": true
+        },
+        {
+            "id": "minecraft:mooshroom",
+            "required": true
+        },
+        {
+            "id": "minecraft:mule",
+            "required": true
+        },
+        {
+            "id": "minecraft:ocelot",
+            "required": true
+        },
+        {
+            "id": "minecraft:panda",
+            "required": true
+        },
+        {
+            "id": "minecraft:parrot",
+            "required": true
+        },
+        {
+            "id": "minecraft:pig",
+            "required": true
+        },
+        {
+            "id": "minecraft:polar_bear",
+            "required": true
+        },
+        {
+            "id": "minecraft:pufferfish",
+            "required": true
+        },
+        {
+            "id": "minecraft:rabbit",
+            "required": true
+        },
+        {
+            "id": "minecraft:salmon",
+            "required": true
+        },
+        {
+            "id": "minecraft:sheep",
+            "required": true
+        },
+        {
+            "id": "minecraft:skeleton_horse",
+            "required": true
+        },
+        {
+            "id": "minecraft:sniffer",
+            "required": true
+        },
+        {
+            "id": "minecraft:snow_golem",
+            "required": true
+        },
+        {
+            "id": "minecraft:squid",
+            "required": true
+        },
+        {
+            "id": "minecraft:strider",
+            "required": true
+        },
+        {
+            "id": "minecraft:trader_llama",
+            "required": true
+        },
+        {
+            "id": "minecraft:tropical_fish",
+            "required": true
+        },
+        {
+            "id": "minecraft:turtle",
+            "required": true
+        },
+        {
+            "id": "minecraft:villager",
+            "required": true
+        },
+        {
+            "id": "minecraft:wandering_trader",
+            "required": true
+        },
+        {
+            "id": "minecraft:wolf",
+            "required": true
+        },
+        {
+            "id": "minecraft:zombie_horse",
+            "required": true
+        }
+    ]
+}

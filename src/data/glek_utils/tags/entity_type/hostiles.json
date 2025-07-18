@@ -1,0 +1,13 @@
+{
+    "replace": true,
+    "values": [
+        {
+            "id": "#glek_utils:vanilla/hostiles",
+            "required": true
+        },
+        {
+            "id": "#glek_utils:modded/hostiles",
+            "required": true
+        }
+    ]
+}

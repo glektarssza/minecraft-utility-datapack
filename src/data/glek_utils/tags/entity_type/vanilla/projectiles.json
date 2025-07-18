@@ -1,0 +1,57 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:arrow",
+            "required": true
+        },
+        {
+            "id": "minecraft:dragon_fireball",
+            "required": true
+        },
+        {
+            "id": "minecraft:egg",
+            "required": true
+        },
+        {
+            "id": "minecraft:experience_bottle",
+            "required": true
+        },
+        {
+            "id": "minecraft:fireball",
+            "required": true
+        },
+        {
+            "id": "minecraft:llama_spit",
+            "required": true
+        },
+        {
+            "id": "minecraft:potion",
+            "required": true
+        },
+        {
+            "id": "minecraft:shulker_bullet",
+            "required": true
+        },
+        {
+            "id": "minecraft:small_fireball",
+            "required": true
+        },
+        {
+            "id": "minecraft:snowball",
+            "required": true
+        },
+        {
+            "id": "minecraft:spectral_arrow",
+            "required": true
+        },
+        {
+            "id": "minecraft:trident",
+            "required": true
+        },
+        {
+            "id": "minecraft:wither_skull",
+            "required": true
+        }
+    ]
+}

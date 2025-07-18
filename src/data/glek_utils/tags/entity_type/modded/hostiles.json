@@ -1,0 +1,9 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "#glek_utils:modded/trial_chambers/hostiles",
+            "required": true
+        }
+    ]
+}

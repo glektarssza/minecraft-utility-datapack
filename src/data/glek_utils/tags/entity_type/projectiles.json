@@ -1,0 +1,13 @@
+{
+    "replace": true,
+    "values": [
+        {
+            "id": "#glek_utils:vanilla/projectiles",
+            "required": true
+        },
+        {
+            "id": "#glek_utils:modded/projectiles",
+            "required": true
+        }
+    ]
+}

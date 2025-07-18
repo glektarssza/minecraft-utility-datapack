@@ -1,0 +1,149 @@
+{
+    "replace": false,
+    "values": [
+        {
+            "id": "minecraft:blaze",
+            "required": true
+        },
+        {
+            "id": "minecraft:cave_spider",
+            "required": true
+        },
+        {
+            "id": "minecraft:creeper",
+            "required": true
+        },
+        {
+            "id": "minecraft:drowned",
+            "required": true
+        },
+        {
+            "id": "minecraft:elder_guardian",
+            "required": true
+        },
+        {
+            "id": "minecraft:ender_dragon",
+            "required": true
+        },
+        {
+            "id": "minecraft:enderman",
+            "required": true
+        },
+        {
+            "id": "minecraft:endermite",
+            "required": true
+        },
+        {
+            "id": "minecraft:evoker",
+            "required": true
+        },
+        {
+            "id": "minecraft:ghast",
+            "required": true
+        },
+        {
+            "id": "minecraft:guardian",
+            "required": true
+        },
+        {
+            "id": "minecraft:hoglin",
+            "required": true
+        },
+        {
+            "id": "minecraft:husk",
+            "required": true
+        },
+        {
+            "id": "minecraft:illusioner",
+            "required": true
+        },
+        {
+            "id": "minecraft:magma_cube",
+            "required": true
+        },
+        {
+            "id": "minecraft:phantom",
+            "required": true
+        },
+        {
+            "id": "minecraft:piglin",
+            "required": true
+        },
+        {
+            "id": "minecraft:piglin_brute",
+            "required": true
+        },
+        {
+            "id": "minecraft:pillager",
+            "required": true
+        },
+        {
+            "id": "minecraft:ravager",
+            "required": true
+        },
+        {
+            "id": "minecraft:shulker",
+            "required": true
+        },
+        {
+            "id": "minecraft:silverfish",
+            "required": true
+        },
+        {
+            "id": "minecraft:skeleton",
+            "required": true
+        },
+        {
+            "id": "minecraft:slime",
+            "required": true
+        },
+        {
+            "id": "minecraft:spider",
+            "required": true
+        },
+        {
+            "id": "minecraft:stray",
+            "required": true
+        },
+        {
+            "id": "minecraft:vex",
+            "required": true
+        },
+        {
+            "id": "minecraft:vindicator",
+            "required": true
+        },
+        {
+            "id": "minecraft:warden",
+            "required": true
+        },
+        {
+            "id": "minecraft:warden",
+            "required": true
+        },
+        {
+            "id": "minecraft:witch",
+            "required": true
+        },
+        {
+            "id": "minecraft:wither_skeleton",
+            "required": true
+        },
+        {
+            "id": "minecraft:zoglin",
+            "required": true
+        },
+        {
+            "id": "minecraft:zombie",
+            "required": true
+        },
+        {
+            "id": "minecraft:zombie_villager",
+            "required": true
+        },
+        {
+            "id": "minecraft:zombified_piglin",
+            "required": true
+        }
+    ]
+}
