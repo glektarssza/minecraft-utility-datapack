@@ -118,7 +118,7 @@
             "^[a-z]+(_[a-z]+)*$"
         ],
         "undeclaredSymbol": [
-            "error",
+            "information",
             {
                 "report": "inherit"
             }
